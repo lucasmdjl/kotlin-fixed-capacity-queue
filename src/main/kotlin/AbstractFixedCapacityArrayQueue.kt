@@ -1,18 +1,18 @@
 /*
- * Fixed Capacity Queue: fixed capacity queue implementations.
- * Copyright (C) 2024 Lucas M. de Jong Larrarte
+ * Fixed Capacity Queue: a Kotlin micro-library with fixed capacity queue implementations.
+ * Copyright (C) 2025 Lucas M. de Jong Larrarte
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Affero General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
@@ -56,6 +56,9 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
         }
     }
 
+    /**
+     * The current index of this queue head.
+     */
     private var head = 0
 
     /**
@@ -64,6 +67,9 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
     final override var size: Int = 0
         protected set
 
+    /**
+     * The current index of this queue tail.
+     */
     private val tail: Int get() = add(head, size)
 
     /**
@@ -73,9 +79,9 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
      * @return x + y, wrapped at this queue's capacity.
      */
     private fun add(x: Int, y: Int): Int = run {
-        val result = x + y
-        if (result >= capacity) result - capacity
-        else result
+        val sum = x + y
+        if (sum >= capacity) sum - capacity
+        else sum
     }
 
     /**

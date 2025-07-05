@@ -2,7 +2,7 @@
 
 ## Overview
 
-This library provides fixed capacity queue implementations for various primitives and generic types.
+This Kotlin micro-library provides fixed capacity queue implementations for various primitives and generic types.
 
 ## Installation
 
@@ -10,15 +10,15 @@ This library provides fixed capacity queue implementations for various primitive
 
 ```kotlin
 dependencies {
-    implementation("com.example:fixed-capacity-queue:0.1.0")
+    implementation("dev.lucasmdjl:kotlin-fixed-capacity-queue:0.1.0")
 }
 ```
 
 ### Maven
 ```xml
 <dependency>
-    <groupId>io.github.lucasmdjl</groupId>
-    <artifactId>fixed-capacity-queue</artifactId>
+    <groupId>dev.lucasmdjl</groupId>
+    <artifactId>kotlin-fixed-capacity-queue</artifactId>
     <version>0.1.0</version>
 </dependency>
 ```

@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.lucasmdjl</groupId>
-    <artifactId>fixed-capacity-queue</artifactId>
+    <groupId>dev.lucasmdjl</groupId>
+    <artifactId>kotlin-fixed-capacity-queue</artifactId>
     <version>0.1.0</version>
 
-    <name>Fixed Capacity Queue</name>
-    <description>Fixed capacity queue implementations.</description>
-    <url>https://github.com/lucasmdjl/fixed-capacity-queue</url>
+    <name>Kotlin Fixed Capacity Queue</name>
+    <description>Kotlin micro-library of Fixed Capacity Queue implementations.</description>
+    <url>https://github.com/lucasmdjl/kotlin-fixed-capacity-queue</url>
 
     <licenses>
         <license>
-            <name>GNU General Public License v3.0</name>
-            <url>https://www.gnu.org/licenses/gpl-3.0</url>
+            <name>GNU Affero General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/agpl-3.0</url>
         </license>
     </licenses>
 
@@ -27,12 +27,13 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/lucasmdjl/fixed-capacity-queue.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:lucasmdjl/fixed-capacity-queue.git</developerConnection>
-        <url>https://github.com/lucasmdjl/fixed-capacity-queue</url>
+        <connection>scm:git:git://github.com/lucasmdjl/kotlin-fixed-capacity-queue.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:lucasmdjl/kotlin-fixed-capacity-queue.git</developerConnection>
+        <url>https://github.com/lucasmdjl/kotlin-fixed-capacity-queue</url>
     </scm>
 
     <properties>
+        <central.profile>lucasmdjl</central.profile>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
@@ -66,11 +67,11 @@
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.4.0</version>
+                <version>0.8.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
-                    <tokenAuth>true</tokenAuth>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
             <plugin>
