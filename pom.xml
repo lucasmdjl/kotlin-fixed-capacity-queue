@@ -8,7 +8,7 @@
     <artifactId>kotlin-fixed-capacity-queue</artifactId>
     <version>0.3.0</version>
 
-    <name>Kotlin Fixed Capacity Queue</name>
+    <name>Fixed Capacity Queue</name>
     <description>Kotlin micro-library for Fixed Capacity Queue implementations.</description>
     <url>https://github.com/lucasmdjl/kotlin-fixed-capacity-queue</url>
 
