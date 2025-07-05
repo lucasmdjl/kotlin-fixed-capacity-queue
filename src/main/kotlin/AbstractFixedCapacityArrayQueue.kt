@@ -34,7 +34,7 @@ import java.util.*
  * @param <T> the type of elements held in this queue
  * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public abstract class AbstractFixedCapacityArrayQueue<T : Any>(private val capacity: Int) : AbstractQueue<T>() {
+public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public val capacity: Int) : AbstractQueue<T>() {
 
     /**
      * Returns the element at the specified position in this queue.
