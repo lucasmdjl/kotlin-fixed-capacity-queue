@@ -10,7 +10,7 @@ This Kotlin micro-library provides fixed capacity queue implementations for vari
 
 ```kotlin
 dependencies {
-    implementation("dev.lucasmdjl:kotlin-fixed-capacity-queue:0.1.0")
+    implementation("dev.lucasmdjl:kotlin-fixed-capacity-queue:0.3.0")
 }
 ```
 
@@ -19,7 +19,7 @@ dependencies {
 <dependency>
     <groupId>dev.lucasmdjl</groupId>
     <artifactId>kotlin-fixed-capacity-queue</artifactId>
-    <version>0.1.0</version>
+    <version>0.3.0</version>
 </dependency>
 ```
 

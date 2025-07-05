@@ -6,10 +6,10 @@
 
     <groupId>dev.lucasmdjl</groupId>
     <artifactId>kotlin-fixed-capacity-queue</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
 
     <name>Kotlin Fixed Capacity Queue</name>
-    <description>Kotlin micro-library of Fixed Capacity Queue implementations.</description>
+    <description>Kotlin micro-library for Fixed Capacity Queue implementations.</description>
     <url>https://github.com/lucasmdjl/kotlin-fixed-capacity-queue</url>
 
     <licenses>
