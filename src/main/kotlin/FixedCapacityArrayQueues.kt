@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.lucasmdjl.fixedqueuecapacity
+package dev.lucasmdjl.fixedqueuecapacity
 
 /**
  * A fixed capacity queue implementation using an ArrayList.

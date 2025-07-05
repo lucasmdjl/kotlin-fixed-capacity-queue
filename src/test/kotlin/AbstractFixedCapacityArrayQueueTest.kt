@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.lucasmdjl.fixedqueuecapacity
+package dev.lucasmdjl.fixedqueuecapacity
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.assertThrows
