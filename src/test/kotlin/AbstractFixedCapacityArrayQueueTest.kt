@@ -18,11 +18,16 @@
 
 package dev.lucasmdjl.fixedqueuecapacity
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
-public abstract class AbstractFixedCapacityArrayQueueTest<T: Any> {
+public abstract class AbstractFixedCapacityArrayQueueTest<T : Any> {
     protected abstract fun getQueue(capacity: Int): AbstractFixedCapacityArrayQueue<T>
     protected abstract fun sampleElements(): Sequence<T>
 

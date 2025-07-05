@@ -20,14 +20,16 @@ package dev.lucasmdjl.fixedqueuecapacity
 
 /**
  * A fixed capacity queue implementation using an ArrayList.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityArrayQueue<T: Any>(capacity: Int): AbstractFixedCapacityArrayQueue<T>(capacity) {
+public class FixedCapacityArrayQueue<T : Any>(capacity: Int) : AbstractFixedCapacityArrayQueue<T>(capacity) {
     private val elements = ArrayList<T?>(capacity)
+
     init {
         repeat(capacity) {
             elements.add(null)
@@ -43,13 +45,14 @@ public class FixedCapacityArrayQueue<T: Any>(capacity: Int): AbstractFixedCapaci
 
 /**
  * A fixed capacity queue implementation using a BooleanArray.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityBooleanArrayQueue(capacity: Int): AbstractFixedCapacityArrayQueue<Boolean>(capacity) {
+public class FixedCapacityBooleanArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Boolean>(capacity) {
     private val elements = BooleanArray(capacity)
 
     override fun getElement(i: Int): Boolean = elements[i]
@@ -61,13 +64,14 @@ public class FixedCapacityBooleanArrayQueue(capacity: Int): AbstractFixedCapacit
 
 /**
  * A fixed capacity queue implementation using a ByteArray.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityByteArrayQueue(capacity: Int): AbstractFixedCapacityArrayQueue<Byte>(capacity) {
+public class FixedCapacityByteArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Byte>(capacity) {
     private val elements = ByteArray(capacity)
 
     override fun getElement(i: Int): Byte = elements[i]
@@ -79,13 +83,14 @@ public class FixedCapacityByteArrayQueue(capacity: Int): AbstractFixedCapacityAr
 
 /**
  * A fixed capacity queue implementation using a CharArray.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityCharArrayQueue(capacity: Int): AbstractFixedCapacityArrayQueue<Char>(capacity) {
+public class FixedCapacityCharArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Char>(capacity) {
     private val elements = CharArray(capacity)
 
     override fun getElement(i: Int): Char = elements[i]
@@ -97,13 +102,14 @@ public class FixedCapacityCharArrayQueue(capacity: Int): AbstractFixedCapacityAr
 
 /**
  * A fixed capacity queue implementation using an IntArray.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityIntArrayQueue(capacity: Int): AbstractFixedCapacityArrayQueue<Int>(capacity) {
+public class FixedCapacityIntArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Int>(capacity) {
     private val elements = IntArray(capacity)
 
     override fun getElement(i: Int): Int = elements[i]
@@ -115,13 +121,14 @@ public class FixedCapacityIntArrayQueue(capacity: Int): AbstractFixedCapacityArr
 
 /**
  * A fixed capacity queue implementation using a LongArray.
- * @param capacity the maximum capacity of the queue. Must be positive.
  *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
+ * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public class FixedCapacityLongArrayQueue(capacity: Int): AbstractFixedCapacityArrayQueue<Long>(capacity) {
+public class FixedCapacityLongArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Long>(capacity) {
     private val elements = LongArray(capacity)
 
     override fun getElement(i: Int): Long = elements[i]

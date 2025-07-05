@@ -25,17 +25,22 @@ import java.util.*
  * This class provides a skeletal implementation of a fixed capacity queue using an array,
  * to minimize the effort required to implement this interface.
  *
+ * Implementors should make sure
+ *
+ * Note: This implementation is not thread-safe. If multiple threads access
+ * this queue concurrently, and at least one of the threads modifies the queue
+ * structurally, it must be synchronized externally.
+ *
  * @param <T> the type of elements held in this queue
  * @param capacity the maximum capacity of the queue. Must be positive.
- *
- * <p>Note: This implementation is not thread-safe. If multiple threads access
- * this queue concurrently, and at least one of the threads modifies the queue
- * structurally, it must be synchronized externally.</p>
  */
-public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capacity: Int): AbstractQueue<T>() {
+public abstract class AbstractFixedCapacityArrayQueue<T : Any>(private val capacity: Int) : AbstractQueue<T>() {
 
     /**
      * Returns the element at the specified position in this queue.
+     *
+     * This method will only be called with indices that correspond to
+     * valid elements in the queue (i.e., positions between head and tail).
      *
      * @param i index of the element to return
      * @return the element at the specified position in this queue
@@ -80,6 +85,7 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
      */
     private fun add(x: Int, y: Int): Int = run {
         val sum = x + y
+        // Use conditional instead of modulo since sum < 2*capacity (performance optimization)
         if (sum >= capacity) sum - capacity
         else sum
     }
@@ -119,7 +125,16 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
 
     final override fun peek(): T? = if (isEmpty()) null else getElement(head)
 
+    /**
+     * Returns an iterator over the elements contained in this queue.
+     * The iterator operates on a snapshot of the queue at the time of creation.
+     * Modifications to the iterator do not affect the original queue.
+     *
+     * @return an iterator over the elements contained in this queue
+     */
     final override fun iterator(): MutableIterator<T> {
+        // Create snapshot to avoid throwing UnsupportedOperationException
+        // while maintaining queue contract of not removing arbitrary elements
         val snapshot = MutableList(size) {
             getElement(add(head, it))
         }
@@ -133,7 +148,7 @@ public abstract class AbstractFixedCapacityArrayQueue<T: Any>(private val capaci
      * @return an iterator that consumes this queue's elements.
      */
     public fun consumingIterator(): Iterator<T> {
-        return object: Iterator<T> {
+        return object : Iterator<T> {
             override fun hasNext(): Boolean = peek() != null
             override fun next(): T = this@AbstractFixedCapacityArrayQueue.remove()
         }

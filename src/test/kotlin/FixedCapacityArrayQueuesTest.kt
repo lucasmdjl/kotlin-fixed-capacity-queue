@@ -18,7 +18,7 @@
 
 package dev.lucasmdjl.fixedqueuecapacity
 
-private class InfiniteIterator<T>(initial: T, private val computeNext: (T) -> T): Iterator<T> {
+private class InfiniteIterator<T>(initial: T, private val computeNext: (T) -> T) : Iterator<T> {
     private var current: T = initial
 
     override fun hasNext(): Boolean = true
