@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.lucasmdjl.fixedqueuecapacity
+package dev.lucasmdjl.fixedcapacityqueue
 
 private class InfiniteIterator<T>(initial: T, private val computeNext: (T) -> T) : Iterator<T> {
     private var current: T = initial
