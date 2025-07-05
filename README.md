@@ -41,3 +41,7 @@ println(queue.poll())  // Output: 1
 println(queue.poll())  // Output: 2
 println(queue.poll())  // Output: null
 ```
+
+## License
+
+AGPL-3.0
