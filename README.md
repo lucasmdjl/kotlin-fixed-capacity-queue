@@ -5,8 +5,7 @@ Here's a rewritten version that adds more context, highlights the library's stre
 ---
 
 # Fixed Capacity Queue for Kotlin
-
-[![Build Status](https://img.shields.io/github/actions/workflow/status/your-username/your-repo/build.yml?branch=main)](https://github.com/your-username/your-repo/actions)
+[![Build Status](https://github.com/lucasmdjl/kotlin-fixed-capacity-queue/actions/workflows/maven-build.yaml/badge.svg)](https://github.com/lucasmdjl/kotlin-fixed-capacity-queue/actions/workflows/maven-build.yaml)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.lucasmdjl/kotlin-fixed-capacity-queue.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:dev.lucasmdjl%20AND%20a:kotlin-fixed-capacity-queue)
 [![License](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 
