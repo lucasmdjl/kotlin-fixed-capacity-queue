@@ -12,7 +12,7 @@ Here's a rewritten version that adds more context, highlights the library's stre
 
 A lightweight, performant, fixed-capacity queue for Kotlin, with specialized implementations for primitives to avoid boxing overhead.
 
-## 🤔 Why use this library?
+## Why use this library?
 
 While the JDK provides excellent general-purpose queue implementations like `ArrayDeque`, this library is designed for specific use cases where:
 
@@ -28,7 +28,7 @@ While the JDK provides excellent general-purpose queue implementations like `Arr
 *   **Lightweight:** A micro-library with zero dependencies.
 *   **Standard Interface:** All implementations implements the `java.util.Queue` interface for easy integration with existing Java and Kotlin code.
 
-## ⚙️ Installation
+## Installation
 
 Add the library as a dependency to your `build.gradle.kts`, `build.gradle` or `pom.xml` file.
 
