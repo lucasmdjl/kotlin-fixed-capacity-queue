@@ -18,6 +18,7 @@ While the JDK provides excellent general-purpose queue implementations like `Arr
 *   **Fixed Capacity:** Once created, the queue's capacity never changes.
 *   **Primitive Specializations:** High-performance queues for all primitive types.
 *   **Generic Support:** A standard queue for any object type `T`.
+*   **Expressive API:** Provides powerful utilities like `pollIf`, `pollWhile`, and a special `headRemovingIterator` for efficient consumption.
 *   **Lightweight:** A micro-library with zero dependencies.
 *   **Standard Interface:** All implementations implement the `FixedCapacityQueue` interface, which extends `java.util.Queue` for easy integration with existing code.
 
@@ -50,7 +51,7 @@ dependencies {
 </dependency>
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 The library provides several queue implementations. Choose the one that best fits your data type.
 
@@ -64,7 +65,7 @@ The library provides several queue implementations. Choose the one that best fit
 *   `FixedCapacityBooleanArrayQueue`
 *   `FixedCapacityShortArrayQueue`
 
-### Example: Primitive Queue (`Int`)
+### Basic Example: Primitive Queue (`Int`)
 
 This is ideal for performance-sensitive tasks involving primitive types.
 
@@ -123,6 +124,80 @@ for (event in eventLog) {
 // - Viewed dashboard
 // - Clicked save
 // - Updated profile
+```
+
+## Advanced Usage & Unique Features
+
+### Conditional Polling with `pollIf`
+
+Safely poll an element only if it matches a condition.
+
+```kotlin
+val dataQueue = FixedCapacityIntArrayQueue(5)
+dataQueue.offer(11) // Odd
+dataQueue.offer(20) // Even
+dataQueue.offer(33) // Odd
+dataQueue.offer(40) // Even
+
+// This is cleaner than: if (q.peek() % 2 == 0) q.poll()
+val firstProcessed = dataQueue.pollIf { it % 2 == 0 } // returns null (11 is odd)
+dataQueue.poll() // returns 11
+val secondProcessed = dataQueue.pollIf { it % 2 == 0 } // returns 20 (20 is even)
+
+println(secondProcessed) // Output: 20
+println("Remaining in queue: $dataQueue") // Output: Remaining in queue: [33, 40]
+```
+
+### Batch Polling with `pollWhile`
+
+Efficiently remove a continuous sequence of elements from the head of the queue that satisfy a condition.
+
+```kotlin
+val tasks = FixedCapacityArrayQueue<String>(4)
+tasks.offer("URGENT: Fix login")
+tasks.offer("URGENT: Deploy patch")
+tasks.offer("NORMAL: Update docs")
+tasks.offer("URGENT: Check logs")
+
+// Process all urgent tasks at the front of the queue
+tasks.pollWhile { it.startsWith("URGENT") }
+
+// The queue now only contains tasks that were not urgent or came after a non-urgent task.
+println(tasks) // Output: [NORMAL: Update docs, URGENT: Check logs]
+```
+
+### Consuming the Queue with `headRemovingIterator`
+
+Efficiently process and remove elements in a single loop using a special-purpose iterator.
+
+```kotlin
+val messages = FixedCapacityArrayQueue<String>(3)
+messages.offer("Message A")
+messages.offer("Message B")
+messages.offer("Message C")
+
+val iterator = messages.headRemovingIterator()
+while (iterator.hasNext()) {
+    val msg = iterator.next()
+    println("Processing: $msg")
+    // The remove() call polls the element we just processed
+    iterator.remove()
+}
+
+println("Is queue empty? ${messages.isEmpty()}") // Output: Is queue empty? true
+```
+
+#### Bonus: Implementing `pollWhile` with `headRemovingIterator`
+
+The `headRemovingIterator` is powerful enough that `pollWhile` could have been implemented like this:
+
+```kotlin
+fun <T> FixedCapacityQueue<T>.pollWhileExample(predicate: (T) -> Boolean) {
+    val iter = this.headRemovingIterator()
+    while (iter.hasNext() && predicate(iter.next())) {
+        iter.remove()
+    }
+}
 ```
 
 ## License
