@@ -1,9 +1,3 @@
-Of course! Your current README is a great start—it's clear and concise. We can enhance it to be more descriptive, professional, and welcoming for potential users.
-
-Here's a rewritten version that adds more context, highlights the library's strengths, and provides more comprehensive examples.
-
----
-
 # Fixed Capacity Queue for Kotlin
 [![Build Status](https://github.com/lucasmdjl/kotlin-fixed-capacity-queue/actions/workflows/maven-build.yaml/badge.svg)](https://github.com/lucasmdjl/kotlin-fixed-capacity-queue/actions/workflows/maven-build.yaml)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.lucasmdjl/kotlin-fixed-capacity-queue.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:dev.lucasmdjl%20AND%20a:kotlin-fixed-capacity-queue)
@@ -19,17 +13,17 @@ While the JDK provides excellent general-purpose queue implementations like `Arr
 *   **High performance with primitives is needed:** Specialized implementations for `Int`, `Long`, `Double`, etc., avoid the performance cost of boxing and unboxing primitives into their object wrappers (e.g., `Int` to `Integer`).
 *   **You need a bounded buffer:** Perfect for scenarios like managing a recent history of events, smoothing data streams, or implementing backpressure.
 
-## ✨ Features
+## Features
 
 *   **Fixed Capacity:** Once created, the queue's capacity never changes.
 *   **Primitive Specializations:** High-performance queues for all primitive types.
 *   **Generic Support:** A standard queue for any object type `T`.
 *   **Lightweight:** A micro-library with zero dependencies.
-*   **Standard Interface:** All implementations implements the `java.util.Queue` interface for easy integration with existing Java and Kotlin code.
+*   **Standard Interface:** All implementations implement the `FixedCapacityQueue` interface, which extends `java.util.Queue` for easy integration with existing code.
 
 ## Installation
 
-Add the library as a dependency to your `build.gradle.kts`, `build.gradle` or `pom.xml` file.
+Available on Maven Central. Add the dependency to your project's build file.
 
 ### Gradle (Kotlin DSL)
 
@@ -60,14 +54,15 @@ dependencies {
 
 The library provides several queue implementations. Choose the one that best fits your data type.
 
+*   `FixedCapacityArrayQueue<T>` (for any object type)
 *   `FixedCapacityIntArrayQueue`
 *   `FixedCapacityLongArrayQueue`
 *   `FixedCapacityDoubleArrayQueue`
 *   `FixedCapacityFloatArrayQueue`
-*   `FixedCapacityBooleanArrayQueue`
-*   `FixedCapacityByteArrayQueue`
 *   `FixedCapacityCharArrayQueue`
-*   `FixedCapacityArrayQueue<T>` (for any object type)
+*   `FixedCapacityByteArrayQueue`
+*   `FixedCapacityBooleanArrayQueue`
+*   `FixedCapacityShortArrayQueue`
 
 ### Example: Primitive Queue (`Int`)
 
@@ -130,6 +125,6 @@ for (event in eventLog) {
 // - Updated profile
 ```
 
-## 📜 License
+## License
 
 This project is licensed under the **Mozilla Public License 2.0**. See the [LICENSE](LICENSE) file for details.

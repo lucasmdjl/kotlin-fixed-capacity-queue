@@ -82,3 +82,10 @@ public class FixedCapacityDoubleArrayQueueTest : AbstractFixedCapacityArrayQueue
 
     override fun sampleElements(): Sequence<Double> = Sequence { InfiniteIterator(3.14) { it + 0.42 } }
 }
+
+public class FixedCapacityShortArrayQueueTest : AbstractFixedCapacityArrayQueueTest<Short>() {
+
+    override fun getQueue(capacity: Int): FixedCapacityShortArrayQueue = FixedCapacityShortArrayQueue(capacity)
+
+    override fun sampleElements(): Sequence<Short> = Sequence { InfiniteIterator(42) { (it + 1).toShort() } }
+}
