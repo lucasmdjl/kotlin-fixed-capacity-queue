@@ -120,3 +120,41 @@ public class FixedCapacityLongArrayQueue(capacity: Int) : AbstractFixedCapacityA
         elements[i] = element
     }
 }
+
+/**
+ * A fixed capacity queue implementation using a FloatArray.
+ *
+ * Note: This implementation is not thread-safe. If multiple threads access
+ * this queue concurrently, and at least one of the threads modifies the queue
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
+ */
+public class FixedCapacityFloatArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Float>(capacity) {
+    private val elements = FloatArray(capacity)
+
+    override fun getElement(i: Int): Float = elements[i]
+
+    override fun setElement(i: Int, element: Float) {
+        elements[i] = element
+    }
+}
+
+/**
+ * A fixed capacity queue implementation using a DoubleArray.
+ *
+ * Note: This implementation is not thread-safe. If multiple threads access
+ * this queue concurrently, and at least one of the threads modifies the queue
+ * structurally, it must be synchronized externally.
+ *
+ * @param capacity the maximum capacity of the queue. Must be positive.
+ */
+public class FixedCapacityDoubleArrayQueue(capacity: Int) : AbstractFixedCapacityArrayQueue<Double>(capacity) {
+    private val elements = DoubleArray(capacity)
+
+    override fun getElement(i: Int): Double = elements[i]
+
+    override fun setElement(i: Int, element: Double) {
+        elements[i] = element
+    }
+}

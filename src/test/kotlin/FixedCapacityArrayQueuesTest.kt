@@ -68,3 +68,17 @@ public class FixedCapacityCharArrayQueueTest : AbstractFixedCapacityArrayQueueTe
 
     override fun sampleElements(): Sequence<Char> = Sequence { InfiniteIterator('A') { it + 1 } }
 }
+
+public class FixedCapacityFloatArrayQueueTest : AbstractFixedCapacityArrayQueueTest<Float>() {
+
+    override fun getQueue(capacity: Int): FixedCapacityFloatArrayQueue = FixedCapacityFloatArrayQueue(capacity)
+
+    override fun sampleElements(): Sequence<Float> = Sequence { InfiniteIterator(3.14f) { it + 0.42f } }
+}
+
+public class FixedCapacityDoubleArrayQueueTest : AbstractFixedCapacityArrayQueueTest<Double>() {
+
+    override fun getQueue(capacity: Int): FixedCapacityDoubleArrayQueue = FixedCapacityDoubleArrayQueue(capacity)
+
+    override fun sampleElements(): Sequence<Double> = Sequence { InfiniteIterator(3.14) { it + 0.42 } }
+}
