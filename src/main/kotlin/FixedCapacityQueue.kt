@@ -6,7 +6,7 @@
 
 package dev.lucasmdjl.fixedcapacityqueue
 
-import java.util.*
+import java.util.Queue
 
 /**
  * Represents a queue with a fixed maximum capacity. This interface extends the standard [Queue] interface, adding
@@ -49,8 +49,22 @@ public interface FixedCapacityQueue<T> : Queue<T> {
      * ```
      * @param predicate a predicate that the head element must satisfy to be removed and returned.
      * @return the head element of the queue if it exists and satisfies the predicate, or null otherwise.
+     * @throws ConcurrentModificationException if [predicate] modifies this queue
      */
     public fun pollIf(predicate: (T) -> Boolean): T?
+
+    /**
+     * Removes and returns elements from the head of the queue while they satisfy the given predicate.
+     *
+     * This method repeatedly checks the head element of the queue against the provided predicate.
+     * If the element satisfies the predicate, it will be removed and processing continues.
+     * The operation stops when the predicate evaluates to false or the queue becomes empty.
+     *
+     * @param predicate a predicate used to test each element at the head of the queue.
+     * Elements are removed as long as they satisfy this predicate.
+     * @throws ConcurrentModificationException if [predicate] modifies this queue
+     */
+    public fun pollWhile(predicate: (T) -> Boolean)
 
     /**
      * Returns a special-purpose iterator that allows for consuming the queue

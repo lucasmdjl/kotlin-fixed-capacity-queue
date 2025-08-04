@@ -97,19 +97,44 @@ public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public final over
         }
     }
 
-    public final override fun pollIf(predicate: (T) -> Boolean): T? = pollIfInternal(predicate)
-
-    public final override fun poll(): T? = pollIfInternal { true }
-
-    private inline fun pollIfInternal(predicate: (T) -> Boolean): T? {
+    public final override fun pollIf(predicate: (T) -> Boolean): T? {
         if (isEmpty()) return null
         val element = getElement(head)
+        val expectedMods = mods
         return if (predicate(element)) {
-            head = add(head, 1)
-            size--
-            mods++
+            if (expectedMods != mods) {
+                throw ConcurrentModificationException()
+            }
+            doPoll()
             element
         } else null
+    }
+
+    public final override fun poll(): T? {
+        if (isEmpty()) return null
+        val element = getElement(head)
+        doPoll()
+        return element
+    }
+
+    /**
+     * Unsafe: This method should only be called after we know there is something to poll
+     */
+    private fun doPoll() {
+        head = add(head, 1)
+        size--
+        mods++
+    }
+
+    public final override fun pollWhile(predicate: (T) -> Boolean) {
+        var expectedMods = mods
+        while (peek()?.let(predicate) == true) {
+            if (expectedMods != mods) {
+                throw ConcurrentModificationException()
+            }
+            doPoll()
+            expectedMods = mods
+        }
     }
 
     public final override fun peek(): T? = if (isEmpty()) null else getElement(head)
