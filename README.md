@@ -44,4 +44,4 @@ println(queue.poll())  // Output: null
 
 ## License
 
-AGPL-3.0
+This project is licensed under the **Mozilla Public License 2.0**. See the [LICENSE](LICENSE) file for details.
