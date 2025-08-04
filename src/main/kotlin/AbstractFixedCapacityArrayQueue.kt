@@ -23,7 +23,8 @@ import java.util.*
  * @param <T> the type of elements held in this queue
  * @param capacity the maximum capacity of the queue. Must be positive.
  */
-public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public val capacity: Int) : AbstractQueue<T>() {
+public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public final override val capacity: Int) :
+    AbstractQueue<T>(), FixedCapacityQueue<T> {
 
     /**
      * Returns the element at the specified position in this queue.
@@ -58,13 +59,20 @@ public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public val capaci
     /**
      * The number of elements currently in this queue.
      */
-    final override var size: Int = 0
+    public final override var size: Int = 0
         protected set
+
+    /**
+     * The number of modifications on this queue.
+     */
+    private var mods = 0
 
     /**
      * The current index of this queue tail.
      */
     private val tail: Int get() = add(head, size)
+
+    public final override fun isFull(): Boolean = size == capacity
 
     /**
      * Adds two elements less than capacity, wrapping the result if it exceeds this queue's capacity.
@@ -79,67 +87,105 @@ public abstract class AbstractFixedCapacityArrayQueue<T : Any>(public val capaci
         else sum
     }
 
-    /**
-     * Checks if this queue is full.
-     * @return true if this queue is full, false otherwise.
-     */
-    public fun isFull(): Boolean = size == capacity
-
-    final override fun offer(e: T): Boolean {
+    public final override fun offer(e: T): Boolean {
         return if (isFull()) false
         else {
             setElement(tail, e)
             size++
+            mods++
             true
         }
     }
 
-    /**
-     * Retrieves and removes the head of this queue if it matches the predicate, or returns null if it does not match
-     * or if this queue is empty.
-     * @param predicate a function that evaluates the element.
-     * @return the head element if it matches the predicate, or null otherwise.
-     */
-    public fun pollIf(predicate: (T) -> Boolean): T? {
+    public final override fun pollIf(predicate: (T) -> Boolean): T? = pollIfInternal(predicate)
+
+    public final override fun poll(): T? = pollIfInternal { true }
+
+    private inline fun pollIfInternal(predicate: (T) -> Boolean): T? {
         if (isEmpty()) return null
         val element = getElement(head)
         return if (predicate(element)) {
             head = add(head, 1)
             size--
+            mods++
             element
         } else null
     }
 
-    final override fun poll(): T? = pollIf { true }
-
-    final override fun peek(): T? = if (isEmpty()) null else getElement(head)
+    public final override fun peek(): T? = if (isEmpty()) null else getElement(head)
 
     /**
-     * Returns an iterator over the elements contained in this queue.
-     * The iterator operates on a snapshot of the queue at the time of creation.
-     * Modifications to the iterator do not affect the original queue.
+     * Returns a read-only iterator over the elements in this queue.
      *
-     * @return an iterator over the elements contained in this queue
+     * The iterator is fail-fast, throwing a [ConcurrentModificationException] if the
+     * queue is modified during iteration.
+     *
+     * @return a read-only iterator over the elements in this queue.
      */
-    final override fun iterator(): MutableIterator<T> {
-        // Create snapshot to avoid throwing UnsupportedOperationException
-        // while maintaining queue contract of not removing arbitrary elements
-        val snapshot = MutableList(size) {
-            getElement(add(head, it))
+    public final override fun iterator(): MutableIterator<T> = object : MutableIterator<T> {
+        private var i = 0
+        private val expectedMods = mods
+        private val next: Int
+            get() = add(head, i)
+
+        override fun hasNext(): Boolean = i < size
+
+        override fun next(): T {
+            if (mods != expectedMods) {
+                throw ConcurrentModificationException()
+            }
+            if (!hasNext()) {
+                throw NoSuchElementException()
+            }
+            val current = getElement(next)
+            i++
+            return current
         }
-        return snapshot.iterator()
+
+        override fun remove() {
+            throw UnsupportedOperationException("remove")
+        }
+
     }
 
-    /**
-     * Returns an iterator that consumes the elements from this queue.
-     * Iterating over this iterator will remove the elements from this queue.
-     *
-     * @return an iterator that consumes this queue's elements.
-     */
-    public fun consumingIterator(): Iterator<T> {
-        return object : Iterator<T> {
-            override fun hasNext(): Boolean = peek() != null
-            override fun next(): T = this@AbstractFixedCapacityArrayQueue.remove()
+    public final override fun headRemovingIterator(): MutableIterator<T> = object : MutableIterator<T> {
+        private var i = 0
+        private var expectedMods = mods
+        private val next: Int
+            get() = add(head, i)
+        private var lastReturned: T? = null
+
+        override fun hasNext(): Boolean = i < size
+
+        override fun next(): T {
+            if (mods != expectedMods) {
+                throw ConcurrentModificationException()
+            }
+            if (!hasNext()) {
+                throw NoSuchElementException()
+            }
+            val current = getElement(next)
+            lastReturned = current
+            i++
+            return current
         }
+
+        override fun remove() {
+            if (mods != expectedMods) {
+                throw ConcurrentModificationException()
+            }
+            if (lastReturned == null) {
+                throw IllegalStateException("next hasn't been called")
+            }
+            if (i != 1) {
+                throw IllegalStateException("Can only remove the head element")
+            }
+            poll()
+            lastReturned = null
+            i--
+            expectedMods = mods
+        }
+
     }
+
 }

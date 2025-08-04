@@ -186,9 +186,10 @@ public abstract class AbstractFixedCapacityArrayQueueTest<T : Any> {
         val elements = sampleElements().take(3).toList()
         elements.forEach(queue::offer)
         val returnedElements = ArrayList<T>()
-        val iterator = queue.consumingIterator()
+        val iterator = queue.headRemovingIterator()
         while (iterator.hasNext()) {
             returnedElements.add(iterator.next())
+            iterator.remove()
         }
         assertEquals(elements, returnedElements)
         assertEquals(0, queue.size)
