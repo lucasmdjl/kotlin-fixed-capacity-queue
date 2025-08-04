@@ -28,13 +28,8 @@ package dev.lucasmdjl.fixedcapacityqueue
  * @param capacity the maximum capacity of the queue. Must be positive.
  */
 public class FixedCapacityArrayQueue<T : Any>(capacity: Int) : AbstractFixedCapacityArrayQueue<T>(capacity) {
-    private val elements = ArrayList<T?>(capacity)
-
-    init {
-        repeat(capacity) {
-            elements.add(null)
-        }
-    }
+    @Suppress("UNCHECKED_CAST")
+    private val elements = arrayOfNulls<Any?>(capacity) as Array<T?>
 
     override fun getElement(i: Int): T = elements[i]!!
 

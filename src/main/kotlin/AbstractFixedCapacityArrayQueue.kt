@@ -25,7 +25,8 @@ import java.util.*
  * This class provides a skeletal implementation of a fixed capacity queue using an array,
  * to minimize the effort required to implement this interface.
  *
- * Implementors should make sure
+ * Implementors should make sure all elements of the underlying array are initialized up to
+ * capacity.
  *
  * Note: This implementation is not thread-safe. If multiple threads access
  * this queue concurrently, and at least one of the threads modifies the queue
